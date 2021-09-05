@@ -1113,8 +1113,16 @@ class PlayState extends MusicBeatState
 		iconP2.y = healthBar.y - (iconP2.height / 2);
 		add(iconP2);
 
-		if (FlxG.save.data.snowSFX == true) {
-			snowEffect.cameras = [camHUD];
+		if (FlxG.save.data.snowSFX == true) 
+		{
+					snowEffect = new FlxSprite(0,0).loadGraphic(Paths.image('stuff/snowballeffect', 'shared'));
+					snowEffect.antialiasing = true;
+					snowEffect.alpha = 1;
+					//snowEffect.setGraphicSize(Std.int(length * width));
+					snowEffect.scrollFactor.set(0.9, 0.9);
+					snowEffect.visible = false;
+
+					snowEffect.cameras = [camHUD];
 		}
 	
 		strumLineNotes.cameras = [camHUD];
@@ -2070,26 +2078,7 @@ class PlayState extends MusicBeatState
 						trainFrameTiming = 0;
 					}
 				}
-				// phillyCityLights.members[curLight].alpha -= (Conductor.crochet / 1000) * FlxG.elapsed;
-			case 'skii':
-				if (FlxG.save.data.snowSFX == true)
-					{
-							//wBg.alpha = 0;
-					//		nwBg.alpha = 1;
-							snowEffect = new FlxSprite(0,0).loadGraphic(Paths.image('stuff/snowballeffect', 'shared'));
-							snowEffect.antialiasing = true;
-							snowEffect.alpha = 1;
-						//	snowEffect.setGraphicSize(Std.int(bg.width * 1));
-							snowEffect.scrollFactor.set(0.9, 0.9);
-							snowEffect.visible = false;
-						//	add(snowEffect);
-						/*
-						if (FlxG.save.data.snowSFX == true) {
-							snowEffect.cameras = [camHUD];
-						}
-							*/
-					}
-		}
+			}
 
 		super.update(elapsed);
 

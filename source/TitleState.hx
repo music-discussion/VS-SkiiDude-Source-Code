@@ -94,6 +94,8 @@ class TitleState extends MusicBeatState
 			FlxG.save.data.played == true;
 		}
 
+		FlxG.save.data.firstTime == false;
+
 		// DEBUG BULLSHIT
 
 		super.create();
@@ -269,7 +271,8 @@ class TitleState extends MusicBeatState
 		FlxG.mouse.visible = false;
 
 		if (initialized)
-			skipIntro();
+			if (FlxG.save.data.firstTime == true)
+				skipIntro();
 		else
 			initialized = true;
 
@@ -425,63 +428,134 @@ class TitleState extends MusicBeatState
 		switch (curBeat)
 		{
 			case 1:
-				createCoolText(['ninjamuffin99', 'phantomArcade', 'kawaisprite', 'evilsk8er']);
-			// credTextShit.visible = true;
+				createCoolText(['KoolAid']);
+			case 2:
+				addMoreText('Discussions');
 			case 3:
-				addMoreText('present');
-			// credTextShit.text += '\npresent...';
-			// credTextShit.addText();
+				addMoreText('IAmTUwUsted');
 			case 4:
-				deleteCoolText();
-			// credTextShit.visible = false;
-			// credTextShit.text = 'In association \nwith';
-			// credTextShit.screenCenter();
+				addMoreText('toasterdotpng');
 			case 5:
-				if (Main.watermarks)
-					createCoolText(['Kade Engine', 'by']);
-				else
-					createCoolText(['In Partnership', 'with']);
+				addMoreText('present along with');
 			case 7:
-				if (Main.watermarks)
-					addMoreText('KadeDeveloper');
-				else
-				{
-					addMoreText('Newgrounds');
-					ngSpr.visible = true;
-				}
-			// credTextShit.text += '\nNewgrounds';
-			case 8:
 				deleteCoolText();
-				ngSpr.visible = false;
-			// credTextShit.visible = false;
-
-			// credTextShit.text = 'Shoutouts Tom Fulp';
-			// credTextShit.screenCenter();
-			case 9:
+				createCoolText(['Chickety']);
+			case 8: 
+				addMoreText('Jack-Thander');
+			case 9: 
+				addMoreText('Mr Beast');
+			case 10: 
+				addMoreText('Manimations✔');
+			case 11: 
+				addMoreText('also present along with');
+			case 12: 
+				deleteCoolText();
+				createCoolText(['Spinel is gonna be Angy']);
+			case 13: 
+				addMoreText('izral✔');
+			case 14: 
+				addMoreText('iTheGodlyPiggy');
+			case 15: 
+				addMoreText('thats all what now');
+			case 16: 
+				addMoreText('thats a team of nine');
+			case 17:
+				deleteCoolText();
+				curWacky = FlxG.random.getObject(getIntroTextShit());
 				createCoolText([curWacky[0]]);
-			// credTextShit.visible = true;
+			case 18:
 				addMoreText(curWacky[1]);
-				addMoreText(curWacky[2]);
-				addMoreText(curWacky[3]);
-			// credTextShit.text += '\nlmao';
-			case 11:
+			case 19: 
 				deleteCoolText();
-			// credTextShit.visible = false;
-			// credTextShit.text = "Friday";
-			// credTextShit.screenCenter();
-			case 12:
+				curWacky = FlxG.random.getObject(getIntroTextShit());
+				createCoolText([curWacky[0]]);
+			case 20: 
+				addMoreText(curWacky[1]);
+			case 21:
+				deleteCoolText();
+				curWacky = FlxG.random.getObject(getIntroTextShit());
+				createCoolText([curWacky[0]]);
+			case 22: 
+				addMoreText(curWacky[1]);
+			case 23: 
+				deleteCoolText();
+				curWacky = FlxG.random.getObject(getIntroTextShit());
+				createCoolText([curWacky[0]]);
+			case 24: 
+				addMoreText(curWacky[1]);
+			case 25:
+				deleteCoolText();
+				curWacky = FlxG.random.getObject(getIntroTextShit());
+				createCoolText([curWacky[0]]);
+			case 26:
+				deleteCoolText();
+				curWacky = FlxG.random.getObject(getIntroTextShit());
+				createCoolText([curWacky[0]]);
+			case 27:
+				addMoreText(curWacky[1]);
+			case 28: 
+				deleteCoolText();
+				curWacky = FlxG.random.getObject(getIntroTextShit());
+				createCoolText([curWacky[0]]);
+			case 29: 
+				addMoreText(curWacky[1]);
+			case 30:
+				deleteCoolText();
+				curWacky = FlxG.random.getObject(getIntroTextShit());
+				createCoolText([curWacky[0]]);
+			case 31: 
+				addMoreText(curWacky[1]);
+			case 32: 
+				deleteCoolText();
+				curWacky = FlxG.random.getObject(getIntroTextShit());
+				createCoolText([curWacky[0]]);
+			case 33: 
+				addMoreText(curWacky[1]);
+			case 34:
+				deleteCoolText();
+				curWacky = FlxG.random.getObject(getIntroTextShit());
+				createCoolText([curWacky[0]]);
+			case 35:
+				addMoreText(curWacky[1]);
+			case 36: 
+				deleteCoolText();
+				curWacky = FlxG.random.getObject(getIntroTextShit());
+				createCoolText([curWacky[0]]);
+			case 37: 
+				addMoreText(curWacky[1]);
+			case 38:
+				deleteCoolText();
+				curWacky = FlxG.random.getObject(getIntroTextShit());
+				createCoolText([curWacky[0]]);
+			case 39: 
+				addMoreText(curWacky[1]);
+			case 40: 
+				deleteCoolText();
+				curWacky = FlxG.random.getObject(getIntroTextShit());
+				createCoolText([curWacky[0]]);
+			case 41: 
+				addMoreText(curWacky[1]);
+			case 42: 
+				deleteCoolText();
+				createCoolText(['updates coming soon']);
+			case 43:
+				addMoreText('accidental leak');
+			case 45:
+				deleteCoolText();
 				addMoreText('Friday');
 			// credTextShit.visible = true;
-			case 13:
+			case 46:
 				addMoreText('Night');
 			// credTextShit.text += '\nNight';
-			case 14:
+			case 47:
 				addMoreText('Funkin'); // credTextShit.text += '\nFunkin';
-			case 15:
+			case 48:
 				addMoreText('VS Skii Dude'); // credTextShit.text += '\nFunkin';
+				FlxG.save.data.firstTime == true;
 
-			case 16:
+			case 49:
 				skipIntro();
+				trace('now u can fucking skip the title');
 		}
 	}
 
