@@ -81,11 +81,17 @@ class ChartingState extends MusicBeatState
 
 	var _song:SwagSong;
 
+	public var lastAction:String = "";
+
 	var typingShit:FlxInputText;
 	/*
 	 * WILL BE THE CURRENT / LAST PLACED NOTE
 	**/
 	var curSelectedNote:Array<Dynamic>;
+
+	public var copiedNotes:Array<Array<Dynamic>> = [];
+	public var pastedNotes:Array<Note> = [];
+	public var deletedNotes:Array<Array<Dynamic>> = [];
 
 	//var snowSFX:Int;
 
@@ -212,7 +218,6 @@ class ChartingState extends MusicBeatState
 
 		add(blackBorder);
 		add(snapText);
-
 
 
 		super.create();

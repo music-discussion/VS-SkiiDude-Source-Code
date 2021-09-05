@@ -102,6 +102,9 @@ class KadeEngineData
 
 		if (FlxG.save.data.realistic == null)
 			FlxG.save.data.realistic = false;
+
+		if (FlxG.save.data.snowHit == null)
+			FlxG.save.data.snowHit = false;
 		
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 		

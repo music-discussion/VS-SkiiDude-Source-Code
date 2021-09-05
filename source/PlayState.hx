@@ -165,7 +165,7 @@ class PlayState extends MusicBeatState
 	public var iconP2:HealthIcon; //what could go wrong?
 	public var camHUD:FlxCamera;
 	private var camGame:FlxCamera;
-	var snowTime:FlxTimer;
+	var snowTime:FlxTimer; // this idea didnt work
 
 	public static var offsetTesting:Bool = false;
 
@@ -1112,6 +1112,10 @@ class PlayState extends MusicBeatState
 		iconP2 = new HealthIcon(SONG.player2, false);
 		iconP2.y = healthBar.y - (iconP2.height / 2);
 		add(iconP2);
+
+		if (FlxG.save.data.snowSFX == true) {
+			snowEffect.cameras = [camHUD];
+		}
 	
 		strumLineNotes.cameras = [camHUD];
 		notes.cameras = [camHUD];
@@ -1184,28 +1188,6 @@ class PlayState extends MusicBeatState
 		}
 		else
 		{
-			if (FlxG.save.data.snowSFX == true)
-			{
-					//wBg.alpha = 0;
-			//		nwBg.alpha = 1;
-					snowEffect = new FlxSprite(0,0).loadGraphic(Paths.image('stuff/snowballeffect', 'shared'));
-					snowEffect.antialiasing = true;
-					snowEffect.alpha = 1;
-				//	snowEffect.setGraphicSize(Std.int(bg.width * 1));
-					snowEffect.scrollFactor.set(0.9, 0.9);
-					snowEffect.visible = false;
-					add(snowEffect);
-
-					snowEffect.cameras = [camHUD];
-
-					/*hexError.antialiasing = true;
-					hexError.scrollFactor.set(0.9, 0.9);
-					hexError.setGraphicSize(Std.int(stageFront.width * 1));*/
-
-				//	trace('funne: ' + snowEffect);
-			//		nwBg.animation.play("gameButMove");
-			}
-
 			switch (curSong.toLowerCase())
 			{
 				default:
@@ -2089,6 +2071,24 @@ class PlayState extends MusicBeatState
 					}
 				}
 				// phillyCityLights.members[curLight].alpha -= (Conductor.crochet / 1000) * FlxG.elapsed;
+			case 'skii':
+				if (FlxG.save.data.snowSFX == true)
+					{
+							//wBg.alpha = 0;
+					//		nwBg.alpha = 1;
+							snowEffect = new FlxSprite(0,0).loadGraphic(Paths.image('stuff/snowballeffect', 'shared'));
+							snowEffect.antialiasing = true;
+							snowEffect.alpha = 1;
+						//	snowEffect.setGraphicSize(Std.int(bg.width * 1));
+							snowEffect.scrollFactor.set(0.9, 0.9);
+							snowEffect.visible = false;
+						//	add(snowEffect);
+						/*
+						if (FlxG.save.data.snowSFX == true) {
+							snowEffect.cameras = [camHUD];
+						}
+							*/
+					}
 		}
 
 		super.update(elapsed);
@@ -2164,12 +2164,30 @@ class PlayState extends MusicBeatState
 			health = 0.5;
 		else if (health > 0.1 && MaxHealth == 1)
 			health = 0.1;
+		else if (health > 0.1 && MaxHealth == 0)
+			health = 0.1;
+		else if (health > 0.1 && MaxHealth == -1)
+			health = 0.1;
+		else if (health > 0.1 && MaxHealth == -3)
+			health = 0.1;
+		else if (health > 0.1 && MaxHealth == -4)
+			health = 0.1;
+		else if (health > 0.1 && MaxHealth == -5)
+			health = 0.1;
+		else if (health > 0.1 && MaxHealth == -6)
+			health = 0.1;
+		else if (health > 0.1 && MaxHealth == -7)
+			health = 0.1;
+		else if (health > 0.1 && MaxHealth == -8)
+			health = 0.1;
+		else if (health > 0.1 && MaxHealth == -9)
+			health = 0.1;
 		else if (health > 0 && MaxHealth == -10)
 			health = 0;
 		//else (health > 2)
 		//	health = 2;
 
-		snowTime = new FlxTimer().start(Conductor.crochet / 5000, function(tmr:FlxTimer)
+		/*snowTime = new FlxTimer().start(Conductor.crochet / 5000, function(tmr:FlxTimer)
 			{
 				trace('hi');
 			});
@@ -2185,10 +2203,10 @@ class PlayState extends MusicBeatState
 						snowEffect.visible = false;
 				
 			}	
-		else if (FlxG.save.data.snowSFX == true && snowHit == true)
+		else if (FlxG.save.data.snowSFX == false && snowHit == true)
 			{
 				snowHit == false;
-			}
+			}*/
 
 		if (healthBar.percent < 20)
 			iconP1.animation.curAnim.curFrame = 1;
@@ -2989,13 +3007,17 @@ class PlayState extends MusicBeatState
 				case 'shit':
 					if (daNote.noteType == 1) //halo notes
 						{
-							health -= 2;
+							health = 0;
 						//	FlxG.sound.play(Paths.sound('death', 'clown'));
 						}
 					else if (daNote.noteType == 2)
 						{
 							MaxHealth -= 1;
-							snowHit == true;
+							if (FlxG.save.data.snowSFX){
+								snowHit == true;
+							}
+							misses += 10;
+							FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
 						}
 					score = -300;
 					combo = 0;
@@ -3006,15 +3028,19 @@ class PlayState extends MusicBeatState
 					if (FlxG.save.data.accuracyMod == 0)
 						totalNotesHit -= 1;
 				case 'bad':
-					if (daNote.noteType == 1) //halo notes
+					if (daNote.noteType == 1) //ice notes
 						{
-							health -= 2;
+							health = 0;
 						//	FlxG.sound.play(Paths.sound('death', 'clown'));
 						}
-					else if (daNote.noteType == 2)
+					else if (daNote.noteType == 2) //snow notes mechanic took longer to figure out
 						{
 							MaxHealth -= 1;
-							snowHit == true;
+							if (FlxG.save.data.snowSFX){
+								snowHit == true;
+							}
+							misses += 5;
+							FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
 						}
 					daRating = 'bad';
 					score = 0;
@@ -3024,15 +3050,19 @@ class PlayState extends MusicBeatState
 					if (FlxG.save.data.accuracyMod == 0)
 						totalNotesHit += 0.50;
 				case 'good':
-					if (daNote.noteType == 1) //halo notes
+					if (daNote.noteType == 1) //ice notes
 						{
-							health -= 2;
+							health = 0;
 						//	FlxG.sound.play(Paths.sound('death', 'clown'));
 						}
-					else if (daNote.noteType == 2)
+					else if (daNote.noteType == 2) //snow notes
 						{
 							MaxHealth -= 1;
-							snowHit == true;
+							if (FlxG.save.data.snowSFX){
+								snowHit == true;
+							}
+							misses += 3;
+							FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
 						}
 					daRating = 'good';
 					score = 200;
@@ -3045,13 +3075,17 @@ class PlayState extends MusicBeatState
 				case 'sick':
 					if (daNote.noteType == 1) //halo notes
 						{
-							health -= 2;
+							health = 0;
 						//	FlxG.sound.play(Paths.sound('death', 'clown'));
 						}
 					else if (daNote.noteType == 2)
 						{
 							MaxHealth -= 1;
-							snowHit == true;
+							if (FlxG.save.data.snowSFX){
+								snowHit == true;
+							}
+							misses += 1;
+							FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
 						}
 					if (health < 2)
 						health += 0.1;
@@ -3756,11 +3790,48 @@ class PlayState extends MusicBeatState
 			}
 		}
 
+		function snowSFXHealth():Void
+			{
+				if (FlxG.save.data.snowHit) {
+					snowEffect.alpha = health + 0.5;
+					snowSFXHealth();
+				}
+				else
+					trace('do nothing');	
+			}
+
 		function goodNoteHit(note:Note, resetMashViolation = true):Void
 			{
 
 				if (mashing != 0)
 					mashing = 0;
+
+			/*	if (note.noteType == 2 && FlxG.save.data.snowSFX == true && snowHit == true){
+        				add(thing);
+				}
+						new FlxTimer().start(2, function(tmr:FlxTimer){
+            		    remove(thing);
+     			});
+				if (note.noteType == 2 && FlxG.save.data.snowSFX == false && snowHit == true) {
+					snowHit == false;
+				}*/
+
+				//dumb beta code ig
+
+				if (note.noteType == 2 && FlxG.save.data.snowSFX == true && snowHit == true){
+					add(snowEffect);
+					new FlxTimer().start(5, function(tmr:FlxTimer){
+						remove(snowEffect);
+						if (healthBar.percent < 50)
+							snowEffect.alpha = health - 0.25;
+						else if (healthBar.percent > 50)
+							snowEffect.alpha = health + 0.3;
+				   }, 1000);
+		   
+		  		}
+				else if (note.noteType == 2 && FlxG.save.data.snowSFX == false && snowHit == true) {
+					snowHit == false;
+				}
 
 				var noteDiff:Float = -(note.strumTime - Conductor.songPosition);
 
