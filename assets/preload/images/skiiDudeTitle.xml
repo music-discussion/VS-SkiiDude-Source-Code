@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="skiiDudeTitle.png">
+<SubTexture name="skiiDude idle bump dance0000" x="0" y="0" width="373" height="350" frameX="0" frameY="0" frameWidth="373" frameHeight="350" />
+<SubTexture name="skiiDude idle bump dance0001" x="373" y="0" width="364" height="361" frameX="0" frameY="0" frameWidth="364" frameHeight="361" />
+<SubTexture name="skiiDude idle bump dance0002" x="0" y="361" width="367" height="358" frameX="0" frameY="0" frameWidth="367" frameHeight="358" />
+<SubTexture name="skiiDude idle bump dance0003" x="367" y="361" width="379" height="337" frameX="0" frameY="0" frameWidth="379" frameHeight="337" />
+</TextureAtlas>
