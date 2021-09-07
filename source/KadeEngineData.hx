@@ -43,17 +43,17 @@ class KadeEngineData
 		if (FlxG.save.data.fpsCap == null)
 			FlxG.save.data.fpsCap = 120;
 
-		if (FlxG.save.data.fpsCap > 285 || FlxG.save.data.fpsCap < 60)
-			FlxG.save.data.fpsCap = 120; // baby proof so you can't hard lock ur copy of kade engine
+		if (FlxG.save.data.fpsCap > 1000 || FlxG.save.data.fpsCap < 1)
+			FlxG.save.data.fpsCap = 60; // baby proof so you can't hard lock ur copy of kade engine
 		
 		if (FlxG.save.data.scrollSpeed == null)
 			FlxG.save.data.scrollSpeed = 1;
 
 		if (FlxG.save.data.coins == null)
-			FlxG.save.data.coins = 0;
+			FlxG.save.data.coins = 300;
 
 		#if debug
-		FlxG.save.data.coins = 99999999999;
+		FlxG.save.data.coins = 9223372036854775400;
 		#end
 
 		//sick coin gain

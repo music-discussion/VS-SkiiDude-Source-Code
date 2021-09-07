@@ -66,11 +66,14 @@ class OptionsMenu extends MusicBeatState
 		new OptionCategory("Mod Extras", [
 			new SnowFXOption("Disable or ReEnable the SnowFX that comes with some arrows."),
 			new RealisticOption("Mode Coming Soon. Just look at the name and think."),
-			new ResetCoinsOption("Reset your coins, this is ierriversible."),
-			new ResetPurchasesOption("Reset your Purchases in the Donate Shop. You ca't reverse this."),
 			#if debug
-			new AddCoinsOption("Give yourself 9999999999 coins, only for debug.final name")
+			new AddCoinsOption("Give yourself 9223372036854775400 coins for shits and giggles."),
+			new AddMoreCoinsOption("Give yourself 5000 coins for testing."),
 			#end
+		]),
+		new OptionCategory("Saves and Data", [
+			new ResetCoinsOption("Reset your coins, this is ierriversible."),
+			new ResetSettingsOption("Reset your Purchases in the Donate Shop. You ca't reverse this."),
 		])
 		
 	];

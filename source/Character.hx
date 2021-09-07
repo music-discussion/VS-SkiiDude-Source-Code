@@ -32,7 +32,10 @@ class Character extends FlxSprite
 		{
 			case 'gf':
 				// GIRLFRIEND CODE
-				tex = Paths.getSparrowAtlas('characters/GF_assets');
+				if (FlxG.save.data.shopItem2)
+					tex = Paths.getSparrowAtlas('characters/gfChristmas');
+				else
+					tex = Paths.getSparrowAtlas('characters/GF_assets');
 				frames = tex;
 				animation.addByPrefix('cheer', 'GF Cheer', 24, false);
 				animation.addByPrefix('singLEFT', 'GF left note', 24, false);
@@ -297,6 +300,9 @@ class Character extends FlxSprite
 
 			case 'bf':
 				var tex = Paths.getSparrowAtlas('characters/BOYFRIEND', 'shared');
+				
+				if (FlxG.save.data.shopItem2)
+					var tex = Paths.getSparrowAtlas('characters/bfChristmas');
 				frames = tex;
 
 				trace(tex.frames.length);

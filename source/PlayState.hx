@@ -93,7 +93,7 @@ class PlayState extends MusicBeatState
 
 	public static var songPosBG:FlxSprite;
 	public static var songPosBar:FlxBar;
-	public static var startCoinAmount:Int = 0;
+	public static var startCoinAmount:Float = 0;
 
 	public static var rep:Replay;
 	public static var loadRep:Bool = false;
@@ -733,6 +733,12 @@ class PlayState extends MusicBeatState
 						add(bg);
 						bg.x -= 100;
 						bg.y -= 100;
+
+						if (FlxG.save.data.shopItem2 == true)
+						{
+							boyfriend.curCharacter == 'bf-christmas';
+							gf.curCharacter == 'gf-christmas';
+						}
 
 						/*var bgChar:FlxSprite = new FlxSprite(0, 100);
 						bgChar.frames = Paths.getSparrowAtlas('skiiBGChar');
@@ -2149,7 +2155,9 @@ class PlayState extends MusicBeatState
 		iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01) - iconOffset);
 		iconP2.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (iconP2.width - iconOffset);
 
-		if (health > 2 && MaxHealth == 5)
+		if (health > 4 && FlxG.save.data.shopItem3)
+			health = 4;
+		else if (health > 2 && !FlxG.save.data.shopItem3)
 			health = 2;
 		else if (health > 1.5 && MaxHealth == 4)
 			health = 1.5;
@@ -3021,7 +3029,10 @@ class PlayState extends MusicBeatState
 					score = -300;
 					combo = 0;
 					misses++;
-					health -= 0.2;
+					if (FlxG.save.data.shopItem3 == true)
+						health -= 0.4;
+					else
+						health -= 0.2;
 					ss = false;
 					shits++;
 					FlxG.save.data.coins -= 10;
@@ -3046,7 +3057,10 @@ class PlayState extends MusicBeatState
 						}
 					daRating = 'bad';
 					score = 0;
-					health -= 0.06;
+					if (FlxG.save.data.shopItem3 == true)
+						health -= 0.12;
+					else
+						health -= 0.06;
 					ss = false;
 					bads++;
 					FlxG.save.data.coins -= 5;
@@ -3076,7 +3090,9 @@ class PlayState extends MusicBeatState
 					FlxG.save.data.coins += 5;
 					FlxG.save.flush();
 					trace("good note hit. five coins added, you have " + FlxG.save.data.coins + " total coins");
-					if (health < 2)
+					if (health < 2 && FlxG.save.data.shopItem3 == true)
+						health += 0.08;
+					else
 						health += 0.04;
 					if (FlxG.save.data.accuracyMod == 0)
 						totalNotesHit += 0.75;
@@ -3095,8 +3111,10 @@ class PlayState extends MusicBeatState
 							misses += 1;
 							FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
 						}
-					if (health < 2)
-						health += 0.1;
+					if (health < 2 && FlxG.save.data.shopItem3 == true)
+						health += 0.4;
+					else
+						health += 0.2;
 					if (FlxG.save.data.accuracyMod == 0)
 						totalNotesHit += 1;
 					FlxG.save.data.coins += 10;
@@ -3647,7 +3665,10 @@ class PlayState extends MusicBeatState
 	{
 		if (!boyfriend.stunned)
 		{
-			health -= 0.04;
+			if (FlxG.save.data.shopItem3 = true)
+				health -= 0.08;
+			else
+				health -= 0.04;
 			if (combo > 5 && gf.animOffsets.exists('sad'))
 			{
 				gf.playAnim('sad');

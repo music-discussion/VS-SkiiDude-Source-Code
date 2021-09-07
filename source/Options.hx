@@ -310,7 +310,7 @@ class AddCoinsOption extends Option
 	}
 	public override function press():Bool
 	{
-		FlxG.save.data.coins+= 9999999999;
+		FlxG.save.data.coins += 9223372036854775400;
 		display = updateDisplay();
 		return true;
 	}
@@ -321,7 +321,7 @@ class AddCoinsOption extends Option
 	}
 }
 
-class ResetPurchasesOption extends Option
+class AddMoreCoinsOption extends Option
 {
 	public function new(desc:String)
 	{
@@ -330,17 +330,84 @@ class ResetPurchasesOption extends Option
 	}
 	public override function press():Bool
 	{
-		FlxG.save.data.shopItem1 = false;
-		FlxG.save.data.shopItem2 = false;
-		FlxG.save.data.shopItem3 = false;
-		FlxG.save.flush();
+		FlxG.save.data.coins += 5000;
 		display = updateDisplay();
 		return true;
 	}
 
 	private override function updateDisplay():String
 	{
-		return "Reset Shop Purchases" + (FlxG.save.data.coins? "" : "");
+		return "" + (FlxG.save.data.coins? "Added Coins" : "Added More Coins");
+	}
+}
+
+class ResetSettingsOption extends Option
+{
+	var confirm:Bool = false;
+
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+	public override function press():Bool
+	{
+		if(!confirm)
+			{
+				confirm = true;
+				display = updateDisplay();
+				return true;
+			}
+			FlxG.save.data.weekUnlocked = null;
+			FlxG.save.data.newInput = null;
+			FlxG.save.data.downscroll = null;
+			FlxG.save.data.antialiasing = null;
+			FlxG.save.data.missSounds = null;
+			FlxG.save.data.dfjk = null;
+			FlxG.save.data.accuracyDisplay = null;
+			FlxG.save.data.offset = null;
+			FlxG.save.data.songPosition = null;
+			FlxG.save.data.fps = null;
+			FlxG.save.data.changedHit = null;
+			FlxG.save.data.fpsRain = null;
+			FlxG.save.data.fpsCap = null;
+			FlxG.save.data.scrollSpeed = null;
+			FlxG.save.data.npsDisplay = null;
+			FlxG.save.data.frames = null;
+			FlxG.save.data.accuracyMod = null;
+			FlxG.save.data.watermark = null;
+			FlxG.save.data.ghost = null;
+			FlxG.save.data.distractions = null;
+			FlxG.save.data.stepMania = null;
+			FlxG.save.data.flashing = null;
+			FlxG.save.data.resetButton = null;
+			FlxG.save.data.botplay = null;
+			FlxG.save.data.cpuStrums = null;
+			FlxG.save.data.strumline = null;
+			FlxG.save.data.customStrumLine = null;
+			FlxG.save.data.camzoom = null;
+			FlxG.save.data.scoreScreen = null;
+			FlxG.save.data.inputShow = null;
+			FlxG.save.data.optimize = null;
+			FlxG.save.data.cacheImages = null;
+			FlxG.save.data.editor = null;
+			FlxG.save.data.oldtimings = null;
+			FlxG.save.data.gracetmr = null;
+			FlxG.save.data.shopItem1 = null;
+			FlxG.save.data.shopItem2 = null;
+			FlxG.save.data.shopItem3 = null;
+			FlxG.save.flush();
+
+			KadeEngineData.initSave();
+			confirm = false;
+			trace('All settings have been reset');
+			display = updateDisplay();
+			return true;
+	}
+
+	private override function updateDisplay():String
+	{
+		return confirm ? "Confirm Settings Reset" : "Reset Settings and Purchases";
 	}
 }
 
@@ -506,9 +573,9 @@ class FPSCapOption extends Option
 	}
 	
 	override function right():Bool {
-		if (FlxG.save.data.fpsCap >= 290)
+		if (FlxG.save.data.fpsCap >= 1000)
 		{
-			FlxG.save.data.fpsCap = 290;
+			FlxG.save.data.fpsCap = 1000;
 			(cast (Lib.current.getChildAt(0), Main)).setFPSCap(290);
 		}
 		else
@@ -519,9 +586,9 @@ class FPSCapOption extends Option
 	}
 
 	override function left():Bool {
-		if (FlxG.save.data.fpsCap > 290)
-			FlxG.save.data.fpsCap = 290;
-		else if (FlxG.save.data.fpsCap < 60)
+		if (FlxG.save.data.fpsCap > 1000)
+			FlxG.save.data.fpsCap = 1000;
+		else if (FlxG.save.data.fpsCap < 1)
 			FlxG.save.data.fpsCap = Application.current.window.displayMode.refreshRate;
 		else
 			FlxG.save.data.fpsCap = FlxG.save.data.fpsCap - 10;

@@ -43,6 +43,8 @@ class ShopState extends MusicBeatState
 	var bg:FlxBackdrop;
 	var sideleft:FlxBackdrop;
 	var sideright:FlxBackdrop;
+
+	var bfMenu:FlxSprite;
 	
 	var itemtext:FlxText;
 	var itemtextd:FlxText;
@@ -63,18 +65,19 @@ class ShopState extends MusicBeatState
 
 	var coinImage:FlxSprite;
 	var arrows:FlxSprite;
+	var potion:FlxSprite;
 
 	var price:Float = 0;
 
 	
 	var shopItems:Array<String> = [
-		'shop item 1',
+		'PRESS LEFT OR RIGHT TO SWITCH',
 		'shop item 2',
 		'shop item 3'
 	];
 	
 	var shopDesc:Array<String> = [
-		'shop description 1',
+		'PRESS LEFT OR RIGHT TO SWITCH',
 		'shop description 2',
 		'shop description 3'
 	];
@@ -83,6 +86,12 @@ class ShopState extends MusicBeatState
 		'100 Coins',
 		'400 Coins',
 		'700 Coins'
+	];
+
+	var boughtFuck:Array<String> = [
+		'bought1',
+		'bought2',
+		'bought3'
 	];
 	
 	override function create()
@@ -130,6 +139,19 @@ class ShopState extends MusicBeatState
 		priceText.x -= 50;
 		add(priceText);
 
+		/*bfMenu = Paths.getSparrowAtlas('characters/bfChristmas', 'shared');
+		bfMenu.animation.addByPrefix('idle', 'BF idle dance', 24, false);
+		bfMenu.addOffset('idle', -5);
+		bfMenu.screenCenter();
+		bfMenu.antialiasing = true;*/
+
+		bfMenu = new FlxSprite(FlxG.width * 1, FlxG.height * 1);
+		bfMenu.frames = Paths.getSparrowAtlas('characters/bfChristmas', 'shared');
+		bfMenu.antialiasing = true;
+		bfMenu.animation.addByPrefix('idle', 'BF idle dancee', 24);
+		bfMenu.animation.play('idle');
+		bfMenu.screenCenter();
+
 		priceText.text = "You have " + FlxG.save.data.coins + " Coins";
 
 		// ALL THE IMAGE SPRITES FOR THE SHOP
@@ -139,6 +161,11 @@ class ShopState extends MusicBeatState
 		arrows.screenCenter();
 		arrows.scale.set(0.75, 0.75);
 	//	add(coinImage);
+
+		potion = new FlxSprite(-450, 300).loadGraphic(Paths.image('shop/potionSprite','shared'));
+		potion.antialiasing = true;
+		potion.screenCenter();
+	//	potion.scale.set(0.75, 0.75);
 		
 		FlxTween.tween(sideleft, { x:0, y: 0 }, 0.5, {ease: FlxEase.quadOut});
 		FlxTween.tween(sideright, { x:1152, y: 0 }, 0.5, {ease: FlxEase.quadOut});
@@ -212,47 +239,53 @@ class ShopState extends MusicBeatState
 
 		switch (shopItems[curSelected])
 		{
-			case 'shop item 1':
+			case 'PRESS LEFT OR RIGHT TO SWITCH':
 				itemtext.text = "Custom Snow Notes";
 				OnShopItem1 = true;
 				OnShopItem2 = false;
 				OnShopItem3 = false;
 				add(arrows);
+				remove(bfMenu);
+				remove(potion);
 			case 'shop item 2':
-				itemtext.text = "Shop Item 2";
+				itemtext.text = "Christmas Sprites";
 				OnShopItem1 = false;
 				OnShopItem2 = true;
 				OnShopItem3 = false;
 				remove(arrows);
+				add(bfMenu);
+				remove(potion);
 			case 'shop item 3':
-				itemtext.text = "Shop Item 3";
+				itemtext.text = "Special Potion";
 				OnShopItem1 = false;
 				OnShopItem2 = false;
 				OnShopItem3 = true;
 				remove(arrows);
+				remove(bfMenu);
+				add(potion);
 		}
 
 		switch (shopDesc[curSelected])
 		{
-			case 'shop description 1':
+			case 'PRESS LEFT OR RIGHT TO SWITCH':
 				itemtextd.text = "Buy Custom Snow notes for VS Skii Dude. NOTE: Not Reversible.";
 			case 'shop description 2':
-				itemtextd.text = "Shop Desc 2";
+				itemtextd.text = "Buy Christmas skins to feel the snowing Spirit.";
 			case 'shop description 3':
-				itemtextd.text = "Shop Desc 3";
+				itemtextd.text = "Drink this for twice the amount of health gained and loss.";
 		}
 
 		switch (prices[curSelected])
 		{
 			case '100 Coins':
-				itemtextp.text = "2000 Coins to buy this item.";
-				price = 2000;
+				itemtextp.text = "COMJNG SOON, MAYBE";
+				price = 0;
 			case '400 Coins':
-				itemtextp.text = "9999999999 Coins to buy this";
-				price = 9999999999;
+				itemtextp.text = "7500 coins to buy this.";
+				price = 7500;
 			case '700 Coins':
-				itemtextp.text = "9999999999 Coins to buy this";
-				price = 9999999999;
+				itemtextp.text = "15k coins to buy this. (doesnt affect snow notes)";
+				price = 15000;
 		}
 	}
 
@@ -263,53 +296,52 @@ class ShopState extends MusicBeatState
 
 	function buy() // this code i actually made lol, sorry in advance if its a bit messy but it gets the job done
 	{
-			switch (prices[curSelected])
-			{
-				case '100 Coins':
-					price = 2000;
-				case '9999999999 Coins to buy this':
-					price = 9999999999;
-				case '9999999999 Coins to buy this':
-					price = 9999999999;
-			}
+		switch (prices[curSelected])
+		{
+			case '100 Coins':
+				itemtextp.text = "COMJNG SOON, MAYBE";
+				price = 0;
+			case '400 Coins':
+				itemtextp.text = "7500 coins to buy this.";
+				price = 7500;
+			case '700 Coins':
+				itemtextp.text = "15k coins to buy this. (doesnt affect snow notes)";
+				price = 15000;
+		}
 
 			if (FlxG.save.data.coins >= price)
 			{
-				if (price == 100 && OnShopItem1 == true && !FlxG.save.data.shopItem1)
+				if (OnShopItem1)
 				{
-					FlxG.sound.play(Paths.sound('confirmMenu'));
-					ShopItem1bought = true;
-					FlxG.save.data.shopItem = true;
-					trace(ShopItem1bought);
+				/*	FlxG.sound.play(Paths.sound('confirmMenu'));
+					FlxG.save.data.shopItem1 = true;
+					trace(FlxG.save.data.shopItem1);
 					FlxG.save.data.coins -= 100;
-					updateDisplay();
-				//	return true;
 					FlxG.save.flush();
-					trace('100 coin shit bought');
+					trace('100 coin shit bought');*/
+
+					trace('item locked lol');
+					FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
 				}
-				else if (price == 400 && OnShopItem2 == true && !FlxG.save.data.shopItem2)
+				else if (OnShopItem2)
 					{
+						if (!FlxG.save.data.shopItem2) {
 						FlxG.sound.play(Paths.sound('confirmMenu'));
-						ShopItem2bought = true;
 						FlxG.save.data.shopItem2 = true;
-						FlxG.save.data.coins -= 400;
-						updateDisplay();
-						trace(ShopItem2bought);
-		//				return true;
-						FlxG.save.flush();
+						FlxG.save.data.coins -= 7500;
+						trace(FlxG.save.data.shopItem2);
 						trace('400 coin shit bought');
+						}
 					}
-				else if (price == 700 && OnShopItem3 == true && !FlxG.save.data.shopItem3)
+				else if (OnShopItem3)
 					{
+						if (!FlxG.save.data.shopItem3) {
 						FlxG.sound.play(Paths.sound('confirmMenu'));
-						ShopItem3bought = true;
-						FlxG.save.data.shopItem = true;
-						trace(ShopItem3bought);
-						FlxG.save.data.coins -= 700;
-						updateDisplay();
-					//	return true;
-						FlxG.save.flush();
+						FlxG.save.data.shopItem3 = true;
+						trace(FlxG.save.data.shopItem3);
+						FlxG.save.data.coins -= 15000;
 						trace('700 coin shit bought');
+						}
 					}
 			}
 			else
