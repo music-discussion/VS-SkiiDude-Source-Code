@@ -49,6 +49,19 @@ class KadeEngineData
 		if (FlxG.save.data.scrollSpeed == null)
 			FlxG.save.data.scrollSpeed = 1;
 
+		if (FlxG.save.data.coins == null)
+			FlxG.save.data.coins = 0;
+
+		#if debug
+		FlxG.save.data.coins = 99999999999;
+		#end
+
+		//sick coin gain
+		/// FlxG.save.data.coins += 10;
+
+		//shit code gain
+		// FlxG.save.data.coins -= 10;
+
 		if (FlxG.save.data.npsDisplay == null)
 			FlxG.save.data.npsDisplay = false;
 
@@ -108,6 +121,18 @@ class KadeEngineData
 
 		if (FlxG.save.data.snowHit == null)
 			FlxG.save.data.snowHit = false;
+		
+		// SHOP ITEM SHIT
+		// MADE FOR THE SHOP STUFF CAUSE IDK
+
+		if (FlxG.save.data.shopItem1 == null)
+			FlxG.save.data.shopItem1 = false;
+
+		if (FlxG.save.data.shopItem2 == null)
+			FlxG.save.data.shopItem2 = false;
+
+		if (FlxG.save.data.shopItem3 == null)
+			FlxG.save.data.shopItem3 = false;
 		
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 		

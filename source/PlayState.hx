@@ -93,6 +93,7 @@ class PlayState extends MusicBeatState
 
 	public static var songPosBG:FlxSprite;
 	public static var songPosBar:FlxBar;
+	public static var startCoinAmount:Int = 0;
 
 	public static var rep:Replay;
 	public static var loadRep:Bool = false;
@@ -181,6 +182,7 @@ class PlayState extends MusicBeatState
 	var phillyTrain:FlxSprite;
 	var trainSound:FlxSound;
 	var MaxHealth:Int = 5;
+	var oldSkii:Bool = false;
 
 	var limo:FlxSprite;
 	var grpLimoDancers:FlxTypedGroup<BackgroundDancer>;
@@ -898,9 +900,11 @@ class PlayState extends MusicBeatState
 				dad.y += 100;
 				camPos.set(dad.getGraphicMidpoint().x + 300, dad.getGraphicMidpoint().y);
 			case 'skiiDude':
-				dad.scale.set(3.5, 3.5);
-				dad.y += 400;
+				if (oldSkii == true)
+					dad.scale.set(3.5, 3.5);
+				//dad.y += 400;
 				dad.antialiasing = true;
+				dad.y += 50;
 		}
 
 
@@ -1083,6 +1087,8 @@ class PlayState extends MusicBeatState
 
 
 		scoreTxt.scrollFactor.set();
+
+		startCoinAmount= FlxG.save.data.coins;
 		
 		scoreTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
 
@@ -2506,6 +2512,8 @@ class PlayState extends MusicBeatState
 			vocals.stop();
 			FlxG.sound.music.stop();
 
+			FlxG.save.data.coins = startCoinAmount;
+
 			openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 
 			#if windows
@@ -2527,6 +2535,8 @@ class PlayState extends MusicBeatState
 		
 					vocals.stop();
 					FlxG.sound.music.stop();
+
+					FlxG.save.data.coins = startCoinAmount;
 		
 					openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 		
@@ -3014,6 +3024,9 @@ class PlayState extends MusicBeatState
 					health -= 0.2;
 					ss = false;
 					shits++;
+					FlxG.save.data.coins -= 10;
+					FlxG.save.flush();
+					trace("r u garbage? ten coins subtracted, you have " + FlxG.save.data.coins + " total coins. don't shit up again");
 					if (FlxG.save.data.accuracyMod == 0)
 						totalNotesHit -= 1;
 				case 'bad':
@@ -3036,6 +3049,9 @@ class PlayState extends MusicBeatState
 					health -= 0.06;
 					ss = false;
 					bads++;
+					FlxG.save.data.coins -= 5;
+					FlxG.save.flush();
+					trace("what was that. five coins suubtracted, you have " + FlxG.save.data.coins + " total coins. dont mess up again");
 					if (FlxG.save.data.accuracyMod == 0)
 						totalNotesHit += 0.50;
 				case 'good':
@@ -3057,6 +3073,9 @@ class PlayState extends MusicBeatState
 					score = 200;
 					ss = false;
 					goods++;
+					FlxG.save.data.coins += 5;
+					FlxG.save.flush();
+					trace("good note hit. five coins added, you have " + FlxG.save.data.coins + " total coins");
 					if (health < 2)
 						health += 0.04;
 					if (FlxG.save.data.accuracyMod == 0)
@@ -3080,7 +3099,10 @@ class PlayState extends MusicBeatState
 						health += 0.1;
 					if (FlxG.save.data.accuracyMod == 0)
 						totalNotesHit += 1;
+					FlxG.save.data.coins += 10;
+					FlxG.save.flush();
 					sicks++;
+					trace("sick note hit. ten coins added, you have " + FlxG.save.data.coins + " total coins");
 			}
 
 			// trace('Wife accuracy loss: ' + wife + ' | Rating: ' + daRating + ' | Score: ' + score + ' | Weight: ' + (1 - wife));
@@ -3806,6 +3828,25 @@ class PlayState extends MusicBeatState
 				}*/
 
 				//dumb beta code ig
+
+				/*if (note.rating == 'sick') {
+					FlxG.save.data.coins += 10;
+					FlxG.save.flush();
+				}
+				else if (note.rating == 'good') {
+					FlxG.save.data.coins += 5;
+					FlxG.save.flush();
+				}
+				else if (note.rating == 'bad') {
+					FlxG.save.data.coins -= 5;
+					FlxG.save.flush();
+				}
+				else if (note.rating == 'shit') {
+					FlxG.save.data.coins -= 10;
+					FlxG.save.flush();
+				}*/
+
+				//this shit always thought every note was the worse category
 
 				if (note.noteType == 2 && FlxG.save.data.snowSFX == true && snowHit == true){
 					add(snowEffect);

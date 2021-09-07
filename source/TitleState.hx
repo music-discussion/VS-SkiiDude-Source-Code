@@ -82,20 +82,6 @@ class TitleState extends MusicBeatState
 
 		trace('hello');
 
-		if (!FlxG.save.data.played)
-		{
-			FlxG.save.data.played == true;
-			trace('wow first timer eh? just activating hard mode');
-			FlxG.save.data.snowSFX == true;
-		}
-		else
-		{
-			trace('Welcome Back! Like to see you!');
-			FlxG.save.data.played == true;
-		}
-
-		FlxG.save.data.firstTime == false;
-
 		// DEBUG BULLSHIT
 
 		super.create();
@@ -193,7 +179,7 @@ class TitleState extends MusicBeatState
 			logoBl.animation.addByPrefix('bump', 'logo bumpin', 24);
 			logoBl.animation.play('bump');
 			logoBl.updateHitbox();
-			// logoBl.screenCenter();
+			logoBl.screenCenter();
 			// logoBl.color = FlxColor.BLACK;
 		} else {
 			logoBl = new FlxSprite(-150, -100);
@@ -202,7 +188,7 @@ class TitleState extends MusicBeatState
 			logoBl.animation.addByPrefix('bump', 'logo bumpin', 24);
 			logoBl.animation.play('bump');
 			logoBl.updateHitbox();
-			// logoBl.screenCenter();
+			logoBl.screenCenter();
 			// logoBl.color = FlxColor.BLACK;
 		}
 
@@ -223,7 +209,7 @@ class TitleState extends MusicBeatState
 		gfDance.antialiasing = true;
 	//	add(gfDance);
 	// shut up gf dance
-		add(skiiTitle);
+	//	add(skiiTitle);
 		add(logoBl);
 
 		titleText = new FlxSprite(100, FlxG.height * 0.8);
@@ -271,7 +257,6 @@ class TitleState extends MusicBeatState
 		FlxG.mouse.visible = false;
 
 		if (initialized)
-			if (FlxG.save.data.firstTime == true)
 				skipIntro();
 		else
 			initialized = true;
@@ -328,6 +313,9 @@ class TitleState extends MusicBeatState
 			if (Date.now().getDay() == 5)
 				NGio.unlockMedal(61034);
 			#end
+
+			if (FlxG.save.data.firstTime == true)
+				skipIntro();
 
 			if (FlxG.save.data.flashing)
 				titleText.animation.play('press');
@@ -552,6 +540,7 @@ class TitleState extends MusicBeatState
 			case 48:
 				addMoreText('VS Skii Dude'); // credTextShit.text += '\nFunkin';
 				FlxG.save.data.firstTime == true;
+				FlxG.save.flush();
 
 			case 49:
 				skipIntro();

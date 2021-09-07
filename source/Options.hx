@@ -281,6 +281,69 @@ class RealisticOption extends Option
 	}
 }
 
+class ResetCoinsOption extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+	public override function press():Bool
+	{
+		FlxG.save.data.coins = 0;
+		display = updateDisplay();
+		return true;
+	}
+
+	private override function updateDisplay():String
+	{
+		return "Reset Coins" + (FlxG.save.data.coins? "" : "");
+	}
+}
+
+class AddCoinsOption extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+	public override function press():Bool
+	{
+		FlxG.save.data.coins+= 9999999999;
+		display = updateDisplay();
+		return true;
+	}
+
+	private override function updateDisplay():String
+	{
+		return "Add Coins" + (FlxG.save.data.coins? "" : "");
+	}
+}
+
+class ResetPurchasesOption extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+	public override function press():Bool
+	{
+		FlxG.save.data.shopItem1 = false;
+		FlxG.save.data.shopItem2 = false;
+		FlxG.save.data.shopItem3 = false;
+		FlxG.save.flush();
+		display = updateDisplay();
+		return true;
+	}
+
+	private override function updateDisplay():String
+	{
+		return "Reset Shop Purchases" + (FlxG.save.data.coins? "" : "");
+	}
+}
+
 class FlashingLightsOption extends Option
 {
 	public function new(desc:String)

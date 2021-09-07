@@ -145,11 +145,16 @@ class Character extends FlxSprite
 				// not sorry, discussions
 				tex = Paths.getSparrowAtlas('characters/skiiDude', 'shared');
 				frames = tex;
-				animation.addByPrefix('idle', 'skiiDude start doing idle dance', 24);
+				animation.addByPrefix('idle', 'skiiDude idle fucking dance', 24);
+				animation.addByPrefix('singUP', 'skiiDude up', 24);
+				animation.addByPrefix('singRIGHT', 'skiiDude right', 24);
+				animation.addByPrefix('singDOWN', 'skiiDude down', 24);
+				animation.addByPrefix('singLEFT', 'skiiDude left', 24);
+				/*animation.addByPrefix('idle', 'skiiDude start doing idle dance', 24);
 				animation.addByPrefix('singUP', 'skiiDude start sing fucking Pose UP', 24);
 				animation.addByPrefix('singRIGHT', 'skiiDude start sing fucking Pose RIGHT', 24);
 				animation.addByPrefix('singDOWN', 'skiiDude start sing fucking Pose DOWN', 24);
-				animation.addByPrefix('singLEFT', 'skiiDude start sing fucking Pose LEFT', 24);
+				animation.addByPrefix('singLEFT', 'skiiDude start sing fucking Pose LEFT', 24);*/
 
 				addOffset('idle');
 				addOffset("singUP", -4, 27);

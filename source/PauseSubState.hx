@@ -22,6 +22,8 @@ class PauseSubState extends MusicBeatSubstate
 {
 	var grpMenuShit:FlxTypedGroup<Alphabet>;
 
+	var coinAmount:FlxText;
+
 	var menuItems:Array<String> = ['Resume', 'Restart Song', 'Exit to menu'];
 	var curSelected:Int = 0;
 
@@ -51,6 +53,14 @@ class PauseSubState extends MusicBeatSubstate
 		bg.alpha = 0;
 		bg.scrollFactor.set();
 		add(bg);
+
+		coinAmount = new FlxText(500, 550, 0, "Coins", 24);
+		coinAmount.setFormat("VCR OSD Mono", 24, FlxColor.YELLOW, RIGHT);
+		coinAmount.screenCenter();
+		coinAmount.y += 250;
+		add(coinAmount);
+
+		coinAmount.text = "You have " + FlxG.save.data.coins + " Coins";
 
 		var levelInfo:FlxText = new FlxText(20, 15, 0, "", 32);
 		levelInfo.text += PlayState.SONG.song;
