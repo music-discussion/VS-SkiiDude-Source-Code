@@ -130,7 +130,6 @@ class TitleState extends MusicBeatState
 
 	var logoBl:FlxSprite;
 	var gfDance:FlxSprite;
-	var skiiTitle:FlxSprite;
 	var danceLeft:Bool = false;
 	var titleText:FlxSprite;
 
@@ -180,6 +179,7 @@ class TitleState extends MusicBeatState
 			logoBl.animation.play('bump');
 			logoBl.updateHitbox();
 			logoBl.screenCenter();
+			//logoBl.screenCenter();
 			// logoBl.color = FlxColor.BLACK;
 		} else {
 			logoBl = new FlxSprite(-150, -100);
@@ -192,24 +192,12 @@ class TitleState extends MusicBeatState
 			// logoBl.color = FlxColor.BLACK;
 		}
 
-		skiiTitle = new FlxSprite(FlxG.width * 0.4, FlxG.height * 0.07);
-		skiiTitle.frames = Paths.getSparrowAtlas('skiiDudeTitle');
-		skiiTitle.antialiasing = true;
-		skiiTitle.animation.addByPrefix('bump', 'skiiDude idle bump dance', 24);
-		skiiTitle.animation.play('bump');
-		skiiTitle.scale.set(1.5, 1.5);
-		skiiTitle.x = 750;
-		skiiTitle.y = 100;
-		//skiiTitle.scale.set(1, 1);
-
 		gfDance = new FlxSprite(FlxG.width * 0.4, FlxG.height * 0.07);
 		gfDance.frames = Paths.getSparrowAtlas('gfDanceTitle');
 		gfDance.animation.addByIndices('danceLeft', 'gfDance', [30, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], "", 24, false);
 		gfDance.animation.addByIndices('danceRight', 'gfDance', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, false);
 		gfDance.antialiasing = true;
-	//	add(gfDance);
-	// shut up gf dance
-	//	add(skiiTitle);
+		//add(gfDance);
 		add(logoBl);
 
 		titleText = new FlxSprite(100, FlxG.height * 0.8);
@@ -257,6 +245,7 @@ class TitleState extends MusicBeatState
 		FlxG.mouse.visible = false;
 
 		if (initialized)
+			if (!FlxG.save.data.firstTime)
 				skipIntro();
 		else
 			initialized = true;
@@ -314,10 +303,7 @@ class TitleState extends MusicBeatState
 				NGio.unlockMedal(61034);
 			#end
 
-			if (FlxG.save.data.firstTime == true)
-				skipIntro();
-
-			if (FlxG.save.data.flashing)
+			if (!FlxG.save.data.flashing)
 				titleText.animation.play('press');
 
 			FlxG.camera.flash(FlxColor.WHITE, 1);
@@ -341,7 +327,10 @@ class TitleState extends MusicBeatState
 					returnedData[1] = data.substring(data.indexOf('-'), data.length);
 				  	if (!MainMenuState.kadeEngineVer.contains(returnedData[0].trim()) && !OutdatedSubState.leftState && MainMenuState.nightly == "")
 					{
-						FlxG.switchState(new MainMenuState());
+						trace('outdated lmao! ' + returnedData[0] + ' != ' + MainMenuState.kadeEngineVer);
+						OutdatedSubState.needVer = returnedData[0];
+						OutdatedSubState.currChanges = returnedData[1];
+						FlxG.switchState(new OutdatedSubState());
 					}
 					else
 					{
@@ -402,8 +391,6 @@ class TitleState extends MusicBeatState
 		super.beatHit();
 
 		logoBl.animation.play('bump');
-
-		skiiTitle.animation.play('bump');
 		danceLeft = !danceLeft;
 
 		if (danceLeft)
@@ -451,78 +438,103 @@ class TitleState extends MusicBeatState
 				deleteCoolText();
 				curWacky = FlxG.random.getObject(getIntroTextShit());
 				createCoolText([curWacky[0]]);
-			case 18:
 				addMoreText(curWacky[1]);
+			case 18:
+				addMoreText(curWacky[2]);
+				addMoreText(curWacky[3]);
 			case 19: 
 				deleteCoolText();
 				curWacky = FlxG.random.getObject(getIntroTextShit());
 				createCoolText([curWacky[0]]);
-			case 20: 
 				addMoreText(curWacky[1]);
+			case 20: 
+				addMoreText(curWacky[2]);
+				addMoreText(curWacky[3]);
 			case 21:
 				deleteCoolText();
 				curWacky = FlxG.random.getObject(getIntroTextShit());
 				createCoolText([curWacky[0]]);
-			case 22: 
 				addMoreText(curWacky[1]);
+			case 22: 
+				addMoreText(curWacky[2]);
+				addMoreText(curWacky[3]);
 			case 23: 
 				deleteCoolText();
 				curWacky = FlxG.random.getObject(getIntroTextShit());
 				createCoolText([curWacky[0]]);
-			case 24: 
 				addMoreText(curWacky[1]);
+			case 24: 
+				addMoreText(curWacky[2]);
+				addMoreText(curWacky[3]);
 			case 25:
 				deleteCoolText();
 				curWacky = FlxG.random.getObject(getIntroTextShit());
 				createCoolText([curWacky[0]]);
+				addMoreText(curWacky[1]);
 			case 26:
 				deleteCoolText();
 				curWacky = FlxG.random.getObject(getIntroTextShit());
 				createCoolText([curWacky[0]]);
-			case 27:
 				addMoreText(curWacky[1]);
+			case 27:
+				addMoreText(curWacky[2]);
+				addMoreText(curWacky[3]);
 			case 28: 
 				deleteCoolText();
 				curWacky = FlxG.random.getObject(getIntroTextShit());
 				createCoolText([curWacky[0]]);
-			case 29: 
 				addMoreText(curWacky[1]);
+			case 29: 
+				addMoreText(curWacky[2]);
+				addMoreText(curWacky[3]);
 			case 30:
 				deleteCoolText();
 				curWacky = FlxG.random.getObject(getIntroTextShit());
 				createCoolText([curWacky[0]]);
-			case 31: 
 				addMoreText(curWacky[1]);
+			case 31: 
+				addMoreText(curWacky[2]);
+				addMoreText(curWacky[3]);
 			case 32: 
 				deleteCoolText();
 				curWacky = FlxG.random.getObject(getIntroTextShit());
 				createCoolText([curWacky[0]]);
-			case 33: 
 				addMoreText(curWacky[1]);
+			case 33: 
+				addMoreText(curWacky[2]);
+				addMoreText(curWacky[3]);
 			case 34:
 				deleteCoolText();
 				curWacky = FlxG.random.getObject(getIntroTextShit());
 				createCoolText([curWacky[0]]);
-			case 35:
 				addMoreText(curWacky[1]);
+			case 35:
+				addMoreText(curWacky[2]);
+				addMoreText(curWacky[3]);
 			case 36: 
 				deleteCoolText();
 				curWacky = FlxG.random.getObject(getIntroTextShit());
 				createCoolText([curWacky[0]]);
-			case 37: 
 				addMoreText(curWacky[1]);
+			case 37: 
+				addMoreText(curWacky[2]);
+				addMoreText(curWacky[3]);
 			case 38:
 				deleteCoolText();
 				curWacky = FlxG.random.getObject(getIntroTextShit());
 				createCoolText([curWacky[0]]);
-			case 39: 
 				addMoreText(curWacky[1]);
+			case 39: 
+				addMoreText(curWacky[2]);
+				addMoreText(curWacky[3]);
 			case 40: 
 				deleteCoolText();
 				curWacky = FlxG.random.getObject(getIntroTextShit());
 				createCoolText([curWacky[0]]);
-			case 41: 
 				addMoreText(curWacky[1]);
+			case 41: 
+				addMoreText(curWacky[2]);
+				addMoreText(curWacky[3]);
 			case 42: 
 				deleteCoolText();
 				createCoolText(['updates coming soon']);
@@ -545,7 +557,7 @@ class TitleState extends MusicBeatState
 			case 49:
 				skipIntro();
 				trace('now u can fucking skip the title');
-		}
+	}
 	}
 
 	var skippedIntro:Bool = false;
@@ -561,4 +573,5 @@ class TitleState extends MusicBeatState
 			skippedIntro = true;
 		}
 	}
+	
 }
