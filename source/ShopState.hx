@@ -20,19 +20,19 @@ import lime.app.Application;
 import openfl.Assets;
 import io.newgrounds.NG;
 import flixel.system.scaleModes.FixedScaleAdjustSizeScaleMode;
-import cpp.abi.Abi;
 import lime.system.DisplayMode;
 import openfl.display.FPS;
 import openfl.Lib;
+
+#if windows
+import cpp.abi.Abi;
+import Discord.DiscordClient;
+#end
 
 // code stolen from my friend who made vs cutie
 // much love thanks
 
 using StringTools;
-
-#if windows
-import Discord.DiscordClient;
-#end
 
 class ShopState extends MusicBeatState
 {
