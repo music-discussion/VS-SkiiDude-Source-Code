@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="skiiBGChar.png">
+<SubTexture name="skiiBGChar bounce bump0000" x="0" y="0" width="499" height="154" frameX="0" frameY="0" frameWidth="499" frameHeight="154" />
+<SubTexture name="skiiBGChar bounce bump0001" x="499" y="0" width="493" height="161" frameX="0" frameY="0" frameWidth="493" frameHeight="161" />
+<SubTexture name="skiiBGChar bounce bump0002" x="0" y="161" width="490" height="164" frameX="0" frameY="0" frameWidth="490" frameHeight="164" />
+<SubTexture name="skiiBGChar bounce bump0003" x="490" y="161" width="488" height="165" frameX="0" frameY="0" frameWidth="488" frameHeight="165" />
+<SubTexture name="skiiBGChar bounce bump0004" x="0" y="326" width="486" height="167" frameX="0" frameY="0" frameWidth="486" frameHeight="167" />
+</TextureAtlas>
