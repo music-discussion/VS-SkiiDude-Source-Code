@@ -1,2 +1,0 @@
-Tutorial:gf:1
-Expurgation:hex:7
